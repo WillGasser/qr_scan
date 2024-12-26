@@ -106,52 +106,64 @@ class MyHomePage extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      body: Padding(
-        padding:
-            EdgeInsets.all(screenWidth * 0.1), // 10% of screen width as padding
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Dynamic Title
-            Text(
-              'QR Scanner Example',
-              style: TextStyle(
-                fontFamily: 'Times New Roman',
-                fontSize: screenWidth * 0.07, // 7% of screen width
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 20), // Spacer
-
-            // Dynamic QR Code Display
-            QrImageView(
-              data: appState.qrData,
-              version: QrVersions.auto,
-              size: screenWidth * 0.6, // 60% of screen width
-            ),
-            const SizedBox(height: 20), // Spacer
-
-            // Dynamic Button
-            SizedBox(
-              width: screenWidth * 0.5, // 50% of screen width
-              height: screenWidth * 0.1, // 10% of screen width
-              child: ElevatedButton(
-                onPressed: () {
-                  // Update the QR code with new data
-                  appState.updateQR(
-                    'https://www.youtube.com/watch?v=9I-2rAxBd-4&t=834s&ab_channel=B9poy',
-                  );
-                },
-                child: Text(
-                  'Generate New QR Code',
+      body: Stack(
+        children: [
+          // Main content
+          Padding(
+            padding: EdgeInsets.all(screenWidth * 0.1),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Dynamic Title
+                Text(
+                  'QR Scanner Example',
                   style: TextStyle(
-                    fontSize: screenWidth * 0.04, // 4% of screen width
+                    fontFamily: 'Times New Roman',
+                    fontSize: screenWidth * 0.07, // 7% of screen width
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              ),
+                const SizedBox(height: 20), // Spacer
+
+                // Dynamic QR Code Display
+                QrImageView(
+                  data: appState.qrData,
+                  version: QrVersions.auto,
+                  size: screenWidth * 0.6, // 60% of screen width
+                ),
+                const SizedBox(height: 20), // Spacer
+
+                // Dynamic Button
+                SizedBox(
+                  width: screenWidth * 0.5, // 50% of screen width
+                  height: screenWidth * 0.1, // 10% of screen width
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Update the QR code with new data
+                      appState.updateQR(
+                        'https://www.youtube.com/watch?v=9I-2rAxBd-4&t=834s&ab_channel=B9poy',
+                      );
+                    },
+                    child: Text(
+                      'Generate New QR Code',
+                      style: TextStyle(
+                        fontSize: screenWidth * 0.04, // 4% of screen width
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+
+          // Overlay Navigation Bar
+          const Positioned(
+            top: 0,
+            left: 0,
+            bottom: 0,
+            child: NavigationBar(),
+          ),
+        ],
       ),
     );
   }
@@ -168,19 +180,21 @@ class NavigationBar extends StatefulWidget {
 class _NavigationBarState extends State<NavigationBar> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('QR_Code'), // Title
-        actions: [
+    return Container(
+      width: 60, // Default collapsed width
+      color: Colors.blueGrey,
+      child: Column(
+        children: [
           IconButton(
-            icon: Image.asset('assets/icon1.png'), // Image button 1
+            icon: Image.asset('assets/pain.JPG'), // Image button 1
             onPressed: () {
+              print("hello1");
             },
           ),
           IconButton(
-            icon: Image.asset('assets/icon2.png'), // Image button 2
+            icon: Image.asset('assets/pain.JPG'), // Image button 2
             onPressed: () {
-              Link
+              print("hello2");
             },
           ),
         ],
